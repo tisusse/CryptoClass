@@ -1,4 +1,5 @@
 import math
+#this function takes the xor of two bit-strings, meaning in each binary position it outputs 1 if the values are different and 0 if the values are the same
 def xor(b, c):
     bit1=str(b)
     bit2=str(c)
@@ -15,6 +16,8 @@ def xor(b, c):
     else:
         print('Strings not the same length')
 
+#this is the definition of the S-box, transforming a bit string of length 6 into one of length 4 in a non-linear way
+#S-boxes are public knowledge in DES
 def box(b):
     bit=str(b)
     if len(bit)==6:
@@ -162,10 +165,14 @@ def box(b):
         else:
             print('Input was not a bit string')
     else:
-        print('Input must be a 6-bit string')        
+        print('Input must be a 6-bit string')
+        
+#DES has the same encryption/decryption procedure (just reversing the set of private keys)        
 setting=input('Please choose encrypt or decrypt: ')
+#encyrption procedure
 if setting == 'encrypt':
     m=input('Input a string of 8 bits string to encrypt: ')
+    #keys are here, these are private and can be changed. We do a 3-round DES here, since this would be feasible for a student to do by hand. In the future, we can program a larger key, subkey generation procedure to obviate the need for this and allow for a full 16-round Feistel cipher 
     k0='110100'
     k1='010011'
     k2='001110'
@@ -202,8 +209,11 @@ if setting == 'encrypt':
             m=L+R
         c=R+L
         print(c)
+        
+#decryption algorithm        
 if setting == 'decrypt':
     m=input('Input a string of 8 bits string to decrypt: ')
+    #this key schedule is reverse to the encyrption key schedule
     k0='110100'
     k1='010011'
     k2='001110'
